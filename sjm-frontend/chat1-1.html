@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SJMCOMMUNITY</title>
+<link rel="stylesheet" href="chat1-1.css">
+</head>
+<body>
+
+<div id="top" class="fullscreen">
+    <a id="home_button" href="home_in.html">Home</a>
+    <h1 id="sjm_commu">SJM COMMUNITY</h1>
+    <a id="profile_button" href="#">Profile</a>
+</div>
+
+<!-- Profile Modal -->
+<div id="profileModal" class="modal hidden">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeProfileModal()">&times;</span>
+        <h2>ข้อมูลผู้ใช้</h2>
+        <p><strong>ชื่อผู้ใช้:</strong> <span id="profileUsername"></span></p>
+        <p><strong>รหัสนักเรียน:</strong> <span id="profileStudentId"></span></p>
+        <button onclick="logout()">ออกจากระบบ</button>
+    </div>
+</div>
+
+<h1 id="head_chat">Random Chat</h1>
+<div id="status">กำลังรอคู่สนทนา</div>
+<button id="leaveButton" style="display:none;">ออกจากการจับคู่</button>
+<div id="chat" style="display:none;">
+    <div id="messages"></div>
+    <form id="form">
+        <input id="input" autocomplete="off" placeholder="พิมพ์ข้อความของคุณ…"/>
+        <button>ส่ง</button>
+    </form>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="home_in.js"></script>
+<script>
+const socket = io({
+    transports: ['websocket'],
+    forceNew: true
+});
+
+let currentRoom = null;
+
+socket.on('waiting', () => {
+    document.getElementById('status').textContent = 'กำลังรอคู่สนทนา…';
+});
+
+socket.on('matched', ({ room }) => {
+    currentRoom = room;
+    document.getElementById('status').style.display = 'none';
+    document.getElementById('chat').style.display = 'block';
+});
+
+socket.on('message', ({ text, sender }) => {
+    const msg = document.createElement('div');
+    msg.textContent = text;
+    msg.classList.add('message');
+    msg.classList.add(sender === 'you' ? 'you' : 'them');
+    document.getElementById('messages').appendChild(msg);
+    document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
+});
+
+document.getElementById('form').addEventListener('submit', e => {
+    e.preventDefault();
+    const input = document.getElementById('input');
+    const text = input.value.trim();
+    if (!text) return;
+
+    const msg = document.createElement('div');
+    msg.textContent = text;
+    msg.classList.add('message', 'you');
+    document.getElementById('messages').appendChild(msg);
+    document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
+
+    socket.emit('message', { room: currentRoom, text });
+    input.value = '';
+});
+
+const leaveButton = document.getElementById('leaveButton');
+
+// เมื่อเริ่มรอคู่สนทนา
+socket.on('waiting', () => {
+    document.getElementById('status').textContent = 'กำลังรอคู่สนทนา…';
+    document.getElementById('status').style.display = 'block';
+    leaveButton.style.display = 'inline-block';
+});
+
+// เมื่อจับคู่แล้ว
+socket.on('matched', ({ room }) => {
+    currentRoom = room;
+    document.getElementById('status').style.display = 'none';
+    document.getElementById('chat').style.display = 'block';
+    leaveButton.style.display = 'inline-block'; // เพิ่มตรงนี้
+});
+
+
+// เมื่อกดออก
+leaveButton.addEventListener('click', () => {
+    if (currentRoom) {
+        socket.emit('leaveRoom', { room: currentRoom });
+    }
+    window.location.href = 'home_in.html';
+});
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,156 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background: radial-gradient(circle, rgb(54, 146, 221), rgb(173, 216, 230)) ;
+    font-family: Sans-serif;
+}
+
+.fullscreen{
+    width: 100vw;
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    border-color: rgb(21,80,129);
+}
+
+#top{
+    padding-top: 20px;
+}
+
+#home_button{
+    padding-left: 20px;
+    font-size: 24px;
+    color: rgb(21,80,129);
+    text-decoration: none;
+}
+
+#login_button{
+    padding-right: 20px;
+    text-align: right;
+    font-size: 24px;
+    color: rgb(21,80,129);
+    text-decoration: none;
+}
+
+#sjm_commu{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgb(21,80,129);
+}
+
+#explain{
+    padding-top: 250px;
+
+    h1{
+        text-align: center;
+        color: rgb(21,80,129);
+    }
+
+    p{
+        text-align: center;
+        font-size: 22px;
+        padding-top: 25px;
+        color: rgb(44,103,153);
+    }
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.25); /* เบลอบางๆ */
+  backdrop-filter: blur(10px); /* เบลอพื้นหลัง */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: linear-gradient(135deg, #ffffffdd, #e6f0ffcc); /* ไล่สีอ่อนนวล */
+  padding: 50px;
+  border-radius: 20px;
+  width: 500px;
+  max-width: 90%;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  position: relative;
+  animation: fadeInUp 0.4s ease-out;
+}
+
+.modal-content h2 {
+  margin-bottom: 25px;
+  font-size: 28px;
+  color: #1e3a5f;
+  text-align: center;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 15px;
+  margin: 12px 0;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  outline: none;
+  transition: 0.3s;
+}
+
+.modal-content input:focus {
+  border-color: #1877f2;
+  box-shadow: 0 0 0 3px rgba(24, 119, 242, 0.2);
+}
+
+.modal-content button {
+  width: 100%;
+  background-color: #1877f2;
+  color: white;
+  border: none;
+  padding: 15px;
+  margin-top: 15px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.modal-content button:hover {
+  background-color: #105ec2;
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 28px;
+  cursor: pointer;
+  color: #555;
+  transition: 0.2s;
+}
+
+.close-btn:hover {
+  color: #000;
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

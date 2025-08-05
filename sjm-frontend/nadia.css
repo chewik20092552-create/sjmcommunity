@@ -1,0 +1,21 @@
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.bg-image {
+    width: 100vw;          /* กว้างเต็ม viewport */
+    height: 100vh;         /* สูงเต็ม viewport */
+    object-fit: cover;     /* ครอบคลุมพื้นที่โดยไม่เสียสัดส่วน */
+}
+
+.box-image {
+    position: absolute;
+    top: 20px;    /* ระยะจากขอบบน */
+    left: 50%;    /* จัดกึ่งกลางแนวนอน */
+    transform: translateX(-50%);
+    width: 500px;  /* หรือขนาดที่คุณต้องการ */
+    height: auto;
+    z-index: 1;
+}

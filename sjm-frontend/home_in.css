@@ -1,0 +1,154 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background: radial-gradient(circle, rgb(54, 146, 221), rgb(173, 216, 230)) ;
+    font-family: Sans-serif;
+}
+
+.fullscreen{
+    width: 100vw;
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    border-color: rgb(21,80,129);
+}
+
+#top{
+    padding-top: 20px;
+}
+
+#home_button{
+    padding-left: 20px;
+    font-size: 24px;
+    color: rgb(21,80,129);
+    text-decoration: none;
+}
+
+#sjm_commu{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgb(21,80,129);
+}
+
+#profile_button{
+    padding-right: 20px;
+    text-align: right;
+    font-size: 24px;
+    color: rgb(21,80,129);
+    text-decoration: none;
+}
+
+.modal {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background-color: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.modal-content {
+    position: relative;
+    background: #fff;
+    padding: 40px;
+    border-radius: 20px;
+    width: 400px;
+    max-width: 90%;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    text-align: center;
+    animation: fadeInUp 0.3s ease;
+}
+
+.modal-content h2 {
+    margin-bottom: 20px;
+    color: #1e3a5f;
+}
+
+.modal-content p {
+    margin: 10px 0;
+    font-size: 18px;
+}
+
+.modal-content button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #1877f2;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 24px;
+    color: #555;
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.nickname-box {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+  z-index: 100;
+}
+
+.nickname-box input {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 1px solid #ffffff;
+  margin-top: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.nickname-box button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #1e88e5;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.nickname-box button:hover {
+  background-color: #1565c0;
+}
+
+#input_nn {
+    font-size: large;
+    font-weight: bold;
+}
+
+.error-msg {
+  color: rgb(255, 0, 0);
+  font-weight: bold;
+  font-size: 14px;
+  margin-top: 5px;
+}
