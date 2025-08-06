@@ -1,6 +1,6 @@
 // server.js
 const express = require('express');
-const mysql = require('mysql2');
+const { Pool } = require('pg');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
@@ -18,18 +18,15 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // DB Connection
-const connection = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false }
 });
 
+pool.connect()
+  .then(() => console.log('✅ PostgreSQL Connected'))
+  .catch(err => console.error('❌ Database connection error', err));
 
-connection.connect(err => {
-  if (err) throw err;
-  console.log('✅ MySQL Connected');
-});
 
 // REGISTER
 app.post('/api/register', async (req, res) => {
@@ -42,33 +39,39 @@ app.post('/api/register', async (req, res) => {
   const hashed = await bcrypt.hash(password, 10);
   const sql = 'INSERT INTO user_sjm (username, studentId, password) VALUES (?, ?, ?)';
 
-  connection.query(sql, [username, studentId, hashed], (err, result) => {
-    if (err) {
-      if (err.code === "ER_DUP_ENTRY") {
-        return res.status(400).json({ message: "บัญชีนี้ถูกใช้ไปแล้ว" });
-      }
-      return res.status(500).json({ message: 'เกิดข้อผิดพลาด', error: err });
-    }
+    const sql = 'INSERT INTO user_sjm (username, studentId, password) VALUES ($1, $2, $3)';
+
+  try {
+    await pool.query(sql, [username, studentId, hashed]);
     res.status(200).json({ message: 'สมัครสมาชิกสำเร็จ' });
-  });
+  } catch (err) {
+    if (err.code === "23505") { // PostgreSQL duplicate error
+      return res.status(400).json({ message: "บัญชีนี้ถูกใช้ไปแล้ว" });
+    }
+    return res.status(500).json({ message: 'เกิดข้อผิดพลาด', error: err });
+  }
+
 });
 
 // LOGIN
 app.post('/api/login', (req, res) => {
   const {studentId, password } = req.body;
 
-  const sql = 'SELECT * FROM user_sjm WHERE studentId = ?';
-  connection.query(sql, [studentId], async (err, results) => {
-    if (err || results.length === 0) return res.status(401).json({ message: 'ไม่พบผู้ใช้' });
+    const sql = 'SELECT * FROM user_sjm WHERE studentId = $1';
+    try {
+      const result = await pool.query(sql, [studentId]);
+      const user = result.rows[0];
+      if (!user) return res.status(401).json({ message: 'ไม่พบผู้ใช้' });
 
-    const user = results[0];
-    const match = await bcrypt.compare(password, user.password);
+      const match = await bcrypt.compare(password, user.password);
+      if (!match) return res.status(401).json({ message: 'รหัสผ่านไม่ถูกต้อง' });
 
-    if (!match) return res.status(401).json({ message: 'รหัสผ่านไม่ถูกต้อง' });
+      const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET || 'secret');
+      res.status(200).json({ message: 'เข้าสู่ระบบสำเร็จ', token });
+    }catch (err) {
+      res.status(500).json({ message: 'เกิดข้อผิดพลาด', error: err });
+  }
 
-    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET || 'secret');
-    res.status(200).json({ message: 'เข้าสู่ระบบสำเร็จ', token });
-  });
 });
 
 // Serve front-end
@@ -85,12 +88,15 @@ app.get('/api/profile', (req, res) => {
   jwt.verify(token, process.env.JWT_SECRET || 'secret', (err, decoded) => {
     if (err) return res.status(401).json({ message: 'token ไม่ถูกต้อง' });
 
-    const sql = 'SELECT username, studentId FROM user_sjm WHERE id = ?';
-    connection.query(sql, [decoded.id], (err, results) => {
-      if (err || results.length === 0)
-        return res.status(404).json({ message: 'ไม่พบผู้ใช้' });
-      res.status(200).json(results[0]);
-    });
+        const sql = 'SELECT username, studentId FROM user_sjm WHERE id = $1';
+        pool.query(sql, [decoded.id])
+          .then(result => {
+            if (result.rows.length === 0)
+               return res.status(404).json({ message: 'ไม่พบผู้ใช้' });
+            res.status(200).json(result.rows[0]);
+          })
+          .catch(err => res.status(500).json({ message: 'เกิดข้อผิดพลาด', error: err }));
+
   });
 });
 
