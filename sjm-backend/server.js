@@ -8,25 +8,25 @@ const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const path = require('path');
 const http = require('http');
-const express = require('express');
-const socketIo = require('socket.io');
+const { Server } = require('socket.io');
+
+dotenv.config();
 
 const app = express();
-const server = http.createServer(app); // สร้าง server จริงๆ
-const io = socketIo(server);
-
-dotenv.config(); // ต้องอยู่ก่อนใช้ process.env
-
-const app = express();
+const server = http.createServer(app); // ใช้ server นี้ทั้ง express และ socket.io
+const io = new Server(server, { cors: { origin: '*' } });
 const port = process.env.PORT || 3000;
-
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
 
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
+
+// Serve frontend static files
+app.use(express.static(path.join(__dirname, '../sjm-frontend')));
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../sjm-frontend/home_out.html'));
+});
 
 // DB Connection
 const pool = new Pool({
@@ -37,7 +37,6 @@ const pool = new Pool({
 pool.connect()
   .then(() => console.log('✅ PostgreSQL Connected'))
   .catch(err => console.error('❌ Database connection error', err));
-
 
 // REGISTER
 app.post('/api/register', async (req, res) => {
@@ -54,42 +53,34 @@ app.post('/api/register', async (req, res) => {
     await pool.query(sql, [username, studentId, hashed]);
     res.status(200).json({ message: 'สมัครสมาชิกสำเร็จ' });
   } catch (err) {
-    if (err.code === "23505") { // PostgreSQL duplicate error
+    if (err.code === "23505") {
       return res.status(400).json({ message: "บัญชีนี้ถูกใช้ไปแล้ว" });
     }
     return res.status(500).json({ message: 'เกิดข้อผิดพลาด', error: err });
   }
-
 });
 
 // LOGIN
 app.post('/api/login', async (req, res) => {
-  const {studentId, password } = req.body;
+  const { studentId, password } = req.body;
 
-    const sql = 'SELECT * FROM user_sjm WHERE studentId = $1';
-    try {
-      const result = await pool.query(sql, [studentId]);
-      const user = result.rows[0];
-      if (!user) return res.status(401).json({ message: 'ไม่พบผู้ใช้' });
+  const sql = 'SELECT * FROM user_sjm WHERE studentId = $1';
+  try {
+    const result = await pool.query(sql, [studentId]);
+    const user = result.rows[0];
+    if (!user) return res.status(401).json({ message: 'ไม่พบผู้ใช้' });
 
-      const match = await bcrypt.compare(password, user.password);
-      if (!match) return res.status(401).json({ message: 'รหัสผ่านไม่ถูกต้อง' });
+    const match = await bcrypt.compare(password, user.password);
+    if (!match) return res.status(401).json({ message: 'รหัสผ่านไม่ถูกต้อง' });
 
-      const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET || 'secret');
-      res.status(200).json({ message: 'เข้าสู่ระบบสำเร็จ', token });
-    }catch (err) {
-      res.status(500).json({ message: 'เกิดข้อผิดพลาด', error: err });
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET || 'secret');
+    res.status(200).json({ message: 'เข้าสู่ระบบสำเร็จ', token });
+  } catch (err) {
+    res.status(500).json({ message: 'เกิดข้อผิดพลาด', error: err });
   }
-
 });
 
-// Serve front-end
-app.use(express.static(path.join(__dirname, '../sjm-frontend')));
-
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../sjm-frontend/home_out.html'));
-});
-
+// GET PROFILE
 app.get('/api/profile', (req, res) => {
   const token = req.headers.authorization?.split(' ')[1];
   if (!token) return res.status(401).json({ message: 'ไม่มี token' });
@@ -97,84 +88,75 @@ app.get('/api/profile', (req, res) => {
   jwt.verify(token, process.env.JWT_SECRET || 'secret', (err, decoded) => {
     if (err) return res.status(401).json({ message: 'token ไม่ถูกต้อง' });
 
-        const sql = 'SELECT username, studentId FROM user_sjm WHERE id = $1';
-        pool.query(sql, [decoded.id])
-          .then(result => {
-            if (result.rows.length === 0)
-               return res.status(404).json({ message: 'ไม่พบผู้ใช้' });
-            res.status(200).json(result.rows[0]);
-          })
-          .catch(err => res.status(500).json({ message: 'เกิดข้อผิดพลาด', error: err }));
-
+    const sql = 'SELECT username, studentId FROM user_sjm WHERE id = $1';
+    pool.query(sql, [decoded.id])
+      .then(result => {
+        if (result.rows.length === 0)
+          return res.status(404).json({ message: 'ไม่พบผู้ใช้' });
+        res.status(200).json(result.rows[0]);
+      })
+      .catch(err => res.status(500).json({ message: 'เกิดข้อผิดพลาด', error: err }));
   });
 });
 
-app.use(express.static(path.join(__dirname, '../sjm-frontend')));
-
-const http = require('http');
-const { Server } = require('socket.io');
-
-const server = http.createServer(app);
-const io = new Server(server, { cors: { origin: "*" } });
-
+// SOCKET.IO
 const waitingUsers = [];
-const socket = io();
 
 io.on('connection', socket => {
-    console.log('🔗 New user connected:', socket.id);
+  console.log('🔗 New user connected:', socket.id);
 
-    if (waitingUsers.length > 0) {
-        const partner = waitingUsers.shift();
-        const room = `room-${socket.id}-${partner.id}`;
+  if (waitingUsers.length > 0) {
+    const partner = waitingUsers.shift();
+    const room = `room-${socket.id}-${partner.id}`;
 
-        socket.join(room);
-        partner.join(room);
+    socket.join(room);
+    partner.join(room);
 
-        socket.emit('matched', { room });
-        partner.emit('matched', { room });
+    socket.emit('matched', { room });
+    partner.emit('matched', { room });
 
-        socket.room = room;
-        partner.room = room;
-    } else {
-        waitingUsers.push(socket);
-        socket.emit('waiting');
+    socket.room = room;
+    partner.room = room;
+  } else {
+    waitingUsers.push(socket);
+    socket.emit('waiting');
+  }
+
+  socket.on('message', ({ room, text }) => {
+    socket.to(room).emit('message', { text, sender: 'them' });
+  });
+
+  socket.on('disconnect', () => {
+    console.log('❌ User disconnected:', socket.id);
+
+    const index = waitingUsers.indexOf(socket);
+    if (index !== -1) {
+      waitingUsers.splice(index, 1);
     }
 
-    socket.on('message', ({ room, text }) => {
-        socket.to(room).emit('message', { text, sender: 'them' });
-    });
+    if (socket.room) {
+      io.to(socket.room).emit('message', { text: 'คู่สนทนาออกจากแชท', sender: 'system' });
+    }
+  });
 
-    socket.on('disconnect', () => {
-        console.log('❌ User disconnected:', socket.id);
-        const index = waitingUsers.indexOf(socket);
-        if (index !== -1) {
-            waitingUsers.splice(index, 1);
-        }
-        io.to(socket.room).emit('message', { text: 'คู่สนทนาออกจากแชท', sender: 'system' });
-    });
-
-    socket.on('leaveRoom', ({ room }) => {
+  socket.on('leaveRoom', ({ room }) => {
     console.log(`🚪 User ${socket.id} left room ${room}`);
-
     socket.leave(room);
 
-    // แจ้งอีกฝั่งในห้องว่าคู่ของเขาออก
     socket.to(room).emit('message', { text: 'คู่สนทนาออกจากห้อง', sender: 'system' });
 
-    // ถอดออกจาก waiting queue เผื่อยังรอ
     const index = waitingUsers.findIndex(s => s.id === socket.id);
     if (index !== -1) {
-        waitingUsers.splice(index, 1);
+      waitingUsers.splice(index, 1);
     }
 
     socket.room = null;
+  });
 });
 
-
-});
-
+// START SERVER
 server.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
+  console.log(`🚀 Server running at http://localhost:${port}`);
 });
 
 
