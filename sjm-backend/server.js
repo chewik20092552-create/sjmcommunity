@@ -7,6 +7,13 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const path = require('path');
+const http = require('http');
+const express = require('express');
+const socketIo = require('socket.io');
+
+const app = express();
+const server = http.createServer(app); // สร้าง server จริงๆ
+const io = socketIo(server);
 
 dotenv.config(); // ต้องอยู่ก่อนใช้ process.env
 
