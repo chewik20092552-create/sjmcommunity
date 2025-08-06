@@ -52,7 +52,7 @@ app.post('/api/register', async (req, res) => {
 });
 
 // LOGIN
-app.post('/api/login', (req, res) => {
+app.post('/api/login', async (req, res) => {
   const {studentId, password } = req.body;
 
     const sql = 'SELECT * FROM user_sjm WHERE studentId = $1';
