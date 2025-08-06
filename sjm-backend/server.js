@@ -26,7 +26,7 @@ const connection = mysql.createConnection({
 });
 
 
-db.connect(err => {
+connection.connect(err => {
   if (err) throw err;
   console.log('✅ MySQL Connected');
 });
@@ -42,7 +42,7 @@ app.post('/api/register', async (req, res) => {
   const hashed = await bcrypt.hash(password, 10);
   const sql = 'INSERT INTO user_sjm (username, studentId, password) VALUES (?, ?, ?)';
 
-  db.query(sql, [username, studentId, hashed], (err, result) => {
+  connection.query(sql, [username, studentId, hashed], (err, result) => {
     if (err) {
       if (err.code === "ER_DUP_ENTRY") {
         return res.status(400).json({ message: "บัญชีนี้ถูกใช้ไปแล้ว" });
@@ -58,7 +58,7 @@ app.post('/api/login', (req, res) => {
   const {studentId, password } = req.body;
 
   const sql = 'SELECT * FROM user_sjm WHERE studentId = ?';
-  db.query(sql, [studentId], async (err, results) => {
+  connection.query(sql, [studentId], async (err, results) => {
     if (err || results.length === 0) return res.status(401).json({ message: 'ไม่พบผู้ใช้' });
 
     const user = results[0];
@@ -86,23 +86,7 @@ app.get('/api/profile', (req, res) => {
     if (err) return res.status(401).json({ message: 'token ไม่ถูกต้อง' });
 
     const sql = 'SELECT username, studentId FROM user_sjm WHERE id = ?';
-    db.query(sql, [decoded.id], (err, results) => {
-      if (err || results.length === 0)
-        return res.status(404).json({ message: 'ไม่พบผู้ใช้' });
-      res.status(200).json(results[0]);
-    });
-  });
-});
-
-app.get('/api/profile', (req, res) => {
-  const token = req.headers.authorization?.split(' ')[1];
-  if (!token) return res.status(401).json({ message: 'ไม่มี token' });
-
-  jwt.verify(token, process.env.JWT_SECRET || 'secret', (err, decoded) => {
-    if (err) return res.status(401).json({ message: 'token ไม่ถูกต้อง' });
-
-    const sql = 'SELECT username, studentId FROM user_sjm WHERE id = ?';
-    db.query(sql, [decoded.id], (err, results) => {
+    connection.query(sql, [decoded.id], (err, results) => {
       if (err || results.length === 0)
         return res.status(404).json({ message: 'ไม่พบผู้ใช้' });
       res.status(200).json(results[0]);
