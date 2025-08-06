@@ -11,6 +11,9 @@ const path = require('path');
 const app = express();
 const port = process.env.PORT || 5000;
 
+const dotenv = require('dotenv');
+dotenv.config(); // ต้องอยู่ก่อนใช้ process.env
+
 // Middleware
 dotenv.config();
 app.use(cors());
