@@ -201,7 +201,7 @@ document.querySelector('#register_modal button:last-of-type').addEventListener('
   }
 });
 
-fetch('http://localhost:5000/api/login', {
+await fetch('https://your-railway-project-name.up.railway.app/api/register', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({ studentId, password })
