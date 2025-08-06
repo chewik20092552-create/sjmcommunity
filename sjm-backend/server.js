@@ -8,11 +8,10 @@ const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const path = require('path');
 
+dotenv.config(); // ต้องอยู่ก่อนใช้ process.env
+
 const app = express();
 const port = process.env.PORT || 5000;
-
-const dotenv = require('dotenv');
-dotenv.config(); // ต้องอยู่ก่อนใช้ process.env
 
 // Middleware
 dotenv.config();
