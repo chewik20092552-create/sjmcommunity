@@ -205,7 +205,7 @@ await fetch('https://your-railway-project-name.up.railway.app/api/register', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({ studentId, password })
-})
+});
 .then(res => res.json())
 .then(data => {
   if (data.token) {
