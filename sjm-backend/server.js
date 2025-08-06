@@ -37,9 +37,7 @@ app.post('/api/register', async (req, res) => {
   }
 
   const hashed = await bcrypt.hash(password, 10);
-  const sql = 'INSERT INTO user_sjm (username, studentId, password) VALUES (?, ?, ?)';
-
-    const sql = 'INSERT INTO user_sjm (username, studentId, password) VALUES ($1, $2, $3)';
+  const sql = 'INSERT INTO user_sjm (username, studentId, password) VALUES ($1, $2, $3)';
 
   try {
     await pool.query(sql, [username, studentId, hashed]);
