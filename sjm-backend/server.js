@@ -111,6 +111,7 @@ const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: "*" } });
 
 const waitingUsers = [];
+const socket = io();
 
 io.on('connection', socket => {
     console.log('🔗 New user connected:', socket.id);
