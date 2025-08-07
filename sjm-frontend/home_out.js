@@ -138,7 +138,7 @@ document.querySelector('#loginModal button:last-of-type')?.addEventListener('cli
   }
 
   try {
-    const response = await fetch('${API_URL}/api/login', {
+    const response = await fetch(`${API_URL}/api/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ studentId, password })
@@ -194,7 +194,7 @@ document.querySelector('#register_modal button:last-of-type')?.addEventListener(
   }
 
   try {
-    const response = await fetch('${API_URL}/api/register', {
+    const response = await fetch(`${API_URL}/api/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, studentId, password })
