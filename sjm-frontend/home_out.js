@@ -3,6 +3,7 @@ const texts = [
   "ไม่มีครู ไม่มีเกรด มีแค่ความจริงใจ และมิตรภาพป่วน ๆ ที่รอให้คุณเข้ามาแชร์"
 ];
 
+
 const ids = ["type_ex_1", "type_ex_2"];
 const delay = 40;
 let currentText = 0;
