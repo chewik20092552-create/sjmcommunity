@@ -11,6 +11,14 @@ const http = require('http');
 const { Server } = require('socket.io');
 
 dotenv.config();
+const corsOptions = {
+  origin: [
+    'https://sjmcommunity.onrender.com',
+    'http://localhost:3000'
+  ],
+  credentials: true
+};
+app.use(cors(corsOptions));
 
 const app = express();
 const server = http.createServer(app); // ใช้ server นี้ทั้ง express และ socket.io
