@@ -118,6 +118,10 @@ document.addEventListener("DOMContentLoaded", () => {
   setupPasswordToggle("toggleRegisterConfirm", "register_confirm_password");
 });
 
+const API_URL = process.env.NODE_ENV === 'production'
+  ? 'https://sjm-backend.onrender.com'
+  : 'http://localhost:3001';
+
 // ระบบล็อกอิน
 document.querySelector('#loginModal button:last-of-type')?.addEventListener('click', async (e) => {
   e.preventDefault();
@@ -134,7 +138,7 @@ document.querySelector('#loginModal button:last-of-type')?.addEventListener('cli
   }
 
   try {
-    const response = await fetch('/api/login', {
+    const response = await fetch('${API_URL}/api/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ studentId, password })
@@ -190,7 +194,7 @@ document.querySelector('#register_modal button:last-of-type')?.addEventListener(
   }
 
   try {
-    const response = await fetch('/api/register', {
+    const response = await fetch('${API_URL}/api/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, studentId, password })
