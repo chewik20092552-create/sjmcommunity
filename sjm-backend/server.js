@@ -12,6 +12,12 @@ const { Server } = require('socket.io');
 
 dotenv.config();
 
+const cors = require("cors");
+app.use(cors({
+  origin: '*', // หรือเจาะจง origin เช่น 'https://your-frontend.com'
+  credentials: true
+}));
+
 const app = express();
 const server = http.createServer(app); // ใช้ server นี้ทั้ง express และ socket.io
 const io = new Server(server, { cors: { origin: '*' } });
