@@ -200,12 +200,4 @@ document.querySelector('#register_modal button:last-of-type').addEventListener('
     }
   }
 });
-.then(data => {
-  if (data.token) {
-    localStorage.setItem('token', data.token); // ⬅️ บันทึก token
-    window.location.href = 'home_in.html';     // ⬅️ ไปหน้า login สำเร็จ
-  } else {
-    console.log(data.message || 'เข้าสู่ระบบล้มเหลว');
-  }
-});
 
