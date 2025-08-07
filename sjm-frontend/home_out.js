@@ -126,6 +126,7 @@ function clearErrors() {
 
 // LOGIN
 document.querySelector('#loginModal button:last-of-type').addEventListener('click', async () => {
+  e.preventDefault();
   clearErrors();
 
   const studentId = document.getElementById('login_username').value;
@@ -162,6 +163,7 @@ document.querySelector('#loginModal button:last-of-type').addEventListener('clic
 
 // REGISTER
 document.querySelector('#register_modal button:last-of-type').addEventListener('click', async () => {
+  e.preventDefault();
   clearErrors();
 
   const username = document.getElementById('register_username').value;
