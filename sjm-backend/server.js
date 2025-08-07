@@ -67,6 +67,10 @@ app.post('/api/register', async (req, res) => {
     }
     return res.status(500).json({ message: 'เกิดข้อผิดพลาด', error: err });
   }
+    res.status(201).json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 // LOGIN
