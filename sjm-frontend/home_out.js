@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupPasswordToggle("toggleRegisterConfirm", "register_confirm_password");
 });
 
-const API_URL = 'https://sjm-backend.onrender.com';
+const API_URL = 'https://sjmcommunity.onrender.com';
 
 // ระบบล็อกอิน
 document.querySelector('#loginModal button:last-of-type')?.addEventListener('click', async (e) => {
