@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   profileButton.addEventListener('click', async () => {
     const token = localStorage.getItem('token');
 
-    const res = await fetch('http://localhost:5000/api/profile', {
+    const res = await fetch('https://postgres-production-ed5c.up.railway.app/api/profile', {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   try {
-    const res = await fetch('http://localhost:5000/api/profile', {
+    const res = await fetch('https://postgres-production-ed5c.up.railway.app/api/profile', {
       headers: { Authorization: `Bearer ${token}` }
     });
 
