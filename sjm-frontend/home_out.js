@@ -125,7 +125,7 @@ function clearErrors() {
 }
 
 // LOGIN
-document.querySelector('#loginModal button:last-of-type').addEventListener('click', async () => {
+document.querySelector('#loginModal button:last-of-type').addEventListener('click', async (e) => {
   e.preventDefault();
   clearErrors();
 
@@ -162,7 +162,7 @@ document.querySelector('#loginModal button:last-of-type').addEventListener('clic
 });
 
 // REGISTER
-document.querySelector('#register_modal button:last-of-type').addEventListener('click', async () => {
+document.querySelector('#register_modal button:last-of-type').addEventListener('click', async (e) => {
   e.preventDefault();
   clearErrors();
 
