@@ -131,7 +131,7 @@ document.querySelector('#loginModal button:last-of-type').addEventListener('clic
   const password = document.getElementById('login_password').value;
 
   try {
-    const res = await fetch('https://postgres-production-ed5c.up.railway.app/api/register', {
+    const res = await fetch('https://postgres-production-ed5c.up.railway.app/api/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ studentId, password })
