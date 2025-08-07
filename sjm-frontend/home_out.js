@@ -134,7 +134,7 @@ document.querySelector('#loginModal button:last-of-type')?.addEventListener('cli
   }
 
   try {
-    const response = await fetch('https://sjmcommunity.onrender.com/api/login', {
+    const response = await fetch('/api/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ studentId, password })
@@ -190,7 +190,7 @@ document.querySelector('#register_modal button:last-of-type')?.addEventListener(
   }
 
   try {
-    const response = await fetch('https://sjmcommunity.onrender.com/api/register', {
+    const response = await fetch('/api/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, studentId, password })
