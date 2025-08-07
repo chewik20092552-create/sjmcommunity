@@ -12,7 +12,6 @@ const { Server } = require('socket.io');
 
 dotenv.config();
 
-const cors = require("cors");
 app.use(cors({
   origin: '*', // หรือเจาะจง origin เช่น 'https://your-frontend.com'
   credentials: true
@@ -24,7 +23,6 @@ const io = new Server(server, { cors: { origin: '*' } });
 const port = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors());
 app.use(bodyParser.json());
 
 // Serve frontend static files
