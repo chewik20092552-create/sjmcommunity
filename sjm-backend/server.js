@@ -19,9 +19,7 @@ const port = process.env.PORT || 3000;
 
 const corsOptions = {
   origin: [
-    'https://sjmcommunity.onrender.com',
-    'http://localhost:3000'
-  ],
+    'https://sjmcommunity.onrender.com'],
   credentials: true
 };
 app.use(cors(corsOptions));
