@@ -67,9 +67,13 @@ app.post('/api/register', async (req, res) => {
     }
     return res.status(500).json({ message: 'เกิดข้อผิดพลาด', error: err });
   }
+  try {
+  // โค้ดที่อาจเกิดข้อผิดพลาด
+    const result = await pool.query('INSERT INTO users ...');
     res.status(201).json({ success: true });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+  } catch (err) {  // บรรทัด 71 ที่ error เกิดขึ้น
+    console.error('Database Error:', err);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
