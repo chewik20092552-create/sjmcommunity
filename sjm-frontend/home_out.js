@@ -210,12 +210,8 @@ document.querySelector('#register_modal button:last-of-type')?.addEventListener(
     document.getElementById('register_modal').classList.add('hidden');
     document.getElementById('loginModal').classList.remove('hidden');
 
-  } catch (error) {
-  console.error("Registration Error:", {
-    message: error.message,
-  });
-  showError('register_username', error.message || "เกิดข้อผิดพลาดในการลงทะเบียน");
-}
+  } catch (err) {
+    console.error("Registration Error:", err);
     if (err.message.includes("บัญชีนี้")) {
       showError('register_student_id', err.message);
     } else {
