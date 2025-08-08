@@ -213,7 +213,6 @@ document.querySelector('#register_modal button:last-of-type')?.addEventListener(
   } catch (error) {
   console.error("Registration Error:", {
     message: error.message,
-    stack: error.stack,
   });
   showError('register_username', error.message || "เกิดข้อผิดพลาดในการลงทะเบียน");
 }
