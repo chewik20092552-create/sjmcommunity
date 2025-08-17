@@ -9,12 +9,13 @@ body{
     font-family: Sans-serif;
 }
 
-.fullscreen{
-    width: 100vw;
-    height: 70px;
+.fullscreen {
+    height: 100vh;
     display: flex;
-    justify-content: space-between;
-    border-color: rgb(21,80,129);
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
 #top{
