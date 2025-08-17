@@ -4,17 +4,19 @@
     box-sizing: border-box;
 }
 
-body{
-    background: radial-gradient(circle, rgb(54, 146, 221), rgb(173, 216, 230)) ;
-    font-family: Sans-serif;
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-attachment: fixed;
+    color: #333;
 }
 
-.fullscreen{
-    width: 100vw;
-    height: 70px;
+.fullscreen {
     display: flex;
-    justify-content: space-between;
-    border-color: rgb(21,80,129);
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 40px 20px;
 }
 
 #top{
