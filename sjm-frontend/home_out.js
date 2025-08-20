@@ -8,6 +8,8 @@ const delay = 40;
 let currentText = 0;
 let currentChar = 0;
 
+const API_URL = "https://sjmcommunity.onrender.com";
+
 function typeSmooth() {
   if (currentText >= texts.length) return;
 
