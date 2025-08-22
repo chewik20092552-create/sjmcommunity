@@ -72,7 +72,7 @@ pool.connect()
 
 // REGISTER ENDPOINT
 app.post('/api/register', async (req, res) => {
-  const { username, studentId, password } = req.body;
+  const { username, studentid, password } = req.body;
 
   // Validation
   if (!username || !studentId || !password) {
@@ -101,7 +101,7 @@ app.post('/api/register', async (req, res) => {
 
     // Create new user
     const newUser = await pool.query(
-      'INSERT INTO user_sjm (username, studentId, password) VALUES ($1, $2, $3) RETURNING id, username, studentId',
+      'INSERT INTO user_sjm (username, studentid, password) VALUES ($1, $2, $3) RETURNING id, username, studentid',
       [username, studentId, hashedPassword]
     );
 
@@ -135,7 +135,7 @@ app.post('/api/login', async (req, res) => {
 
   try {
     const result = await pool.query(
-      'SELECT * FROM user_sjm WHERE studentId = $1', 
+      'SELECT * FROM user_sjm WHERE studentid = $1', 
       [studentId]
     );
 
@@ -158,7 +158,7 @@ app.post('/api/login', async (req, res) => {
 
     // Create token
     const token = jwt.sign(
-      { id: user.id, studentId: user.studentId },
+      { id: user.id, studentid: user.studentid },
       process.env.JWT_SECRET || 'your-secret-key',
       { expiresIn: '1d' }
     );
@@ -170,7 +170,7 @@ app.post('/api/login', async (req, res) => {
       user: {
         id: user.id,
         username: user.username,
-        studentId: user.studentId
+        studentId: user.studentid
       }
     });
 
