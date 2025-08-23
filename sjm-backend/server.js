@@ -56,13 +56,12 @@ app.get('/api/test', (req, res) => {
 
 // DB Connection
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: { 
-    rejectUnauthorized: false 
-  },
-  max: 20,
-  idleTimeoutMillis: 30000,
-  connectionTimeoutMillis: 2000
+  host: process.env.postgres.railway.internal,
+  user: process.env.postgres,
+  password: process.env.vFCXHKfLJyWVHtvGiMZWewDLRsuBKExw,
+  database: process.env.railway,
+  port: process.env.5432,
+  ssl: { rejectUnauthorized: false }
 });
 
 pool.connect()
