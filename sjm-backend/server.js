@@ -73,7 +73,7 @@ app.post('/api/register', async (req, res) => {
   const { username, studentid, password } = req.body;
 
   // Validation
-  if (!username || !studentId || !password) {
+  if (!username || !studentid || !password) {
     return res.status(400).json({ 
       success: false,
       message: "กรุณากรอกข้อมูลให้ครบทุกช่อง" 
@@ -84,7 +84,7 @@ app.post('/api/register', async (req, res) => {
     // Check if user exists
     const userExists = await pool.query(
       'SELECT * FROM user_sjm WHERE username = $1 OR studentId = $2', 
-      [username, studentId]
+      [username, studentid]
     );
 
     if (userExists.rows.length > 0) {
@@ -100,7 +100,7 @@ app.post('/api/register', async (req, res) => {
     // Create new user
     const newUser = await pool.query(
       'INSERT INTO user_sjm (username, studentid, password) VALUES ($1, $2, $3) RETURNING id, username, studentid',
-      [username, studentId, hashedPassword]
+      [username, studentid, hashedPassword]
     );
 
     res.status(201).json({
@@ -121,10 +121,10 @@ app.post('/api/register', async (req, res) => {
 
 // LOGIN ENDPOINT
 app.post('/api/login', async (req, res) => {
-  const { studentId, password } = req.body;
+  const { studentid, password } = req.body;
 
   // Basic validation
-  if (!studentId || !password) {
+  if (!studentid || !password) {
     return res.status(400).json({ 
       success: false,
       message: "กรุณากรอกรหัสนักเรียนและรหัสผ่าน"
@@ -134,7 +134,7 @@ app.post('/api/login', async (req, res) => {
   try {
     const result = await pool.query(
       'SELECT * FROM user_sjm WHERE studentid = $1', 
-      [studentId]
+      [studentid]
     );
 
     if (result.rows.length === 0) {
