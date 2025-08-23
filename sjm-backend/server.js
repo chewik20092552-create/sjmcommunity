@@ -60,7 +60,7 @@ const pool = new Pool({
   user: process.env.postgres,
   password: process.env.vFCXHKfLJyWVHtvGiMZWewDLRsuBKExw,
   database: process.env.railway,
-  port: process.env.5432,
+  port: process.env.PGPORT || 5432,
   ssl: { rejectUnauthorized: false }
 });
 
