@@ -56,7 +56,7 @@ app.get('/api/test', (req, res) => {
 
 // DB Connection
 const pool = new Pool({
-  host: process.env.postgres.railway.internal,
+  host: process.env.postgres.railway.app,
   user: process.env.postgres,
   password: process.env.vFCXHKfLJyWVHtvGiMZWewDLRsuBKExw,
   database: process.env.railway,
