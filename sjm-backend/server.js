@@ -197,7 +197,7 @@ app.get('/api/profile', async (req, res) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key');
     
     const result = await pool.query(
-      'SELECT username, studentId FROM user_sjm WHERE id = $1',
+      'SELECT username, studentid FROM user_sjm WHERE id = $1',
       [decoded.id]
     );
 
