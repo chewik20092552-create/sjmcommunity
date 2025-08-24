@@ -123,12 +123,12 @@ document.querySelector('#loginModal button:last-of-type')?.addEventListener('cli
   e.preventDefault();
   clearErrors();
 
-  const studentId = document.getElementById('login_username').value.trim();
+  const studentid = document.getElementById('login_username').value.trim();
   const password = document.getElementById('login_password').value;
 
   // ตรวจสอบข้อมูลพื้นฐาน
-  if (!studentId || !password) {
-    if (!studentId) showError('login_username', "กรุณากรอกรหัสนักเรียน");
+  if (!studentid || !password) {
+    if (!studentid) showError('login_username', "กรุณากรอกรหัสนักเรียน");
     if (!password) showError('login_password', "กรุณากรอกรหัสผ่าน");
     return;
   }
@@ -137,7 +137,7 @@ document.querySelector('#loginModal button:last-of-type')?.addEventListener('cli
     const response = await fetch(`/api/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ studentId, password })
+      body: JSON.stringify({ studentid, password })
     });
 
     if (!response.ok) {
@@ -166,14 +166,14 @@ document.querySelector('#register_modal button:last-of-type')?.addEventListener(
   clearErrors();
 
   const username = document.getElementById('register_username').value.trim();
-  const studentId = document.getElementById('register_student_id').value.trim();
+  const studentid = document.getElementById('register_student_id').value.trim();
   const password = document.getElementById('register_password').value;
   const confirm = document.getElementById('register_confirm_password').value;
 
   // ตรวจสอบความถูกต้องของข้อมูล
-  if (!username || !studentId || !password || !confirm) {
+  if (!username || !studentid || !password || !confirm) {
     if (!username) showError('register_username', "กรุณากรอกชื่อผู้ใช้");
-    if (!studentId) showError('register_student_id', "กรุณากรอกรหัสนักเรียน");
+    if (!studentid) showError('register_student_id', "กรุณากรอกรหัสนักเรียน");
     if (!password) showError('register_password', "กรุณากรอกรหัสผ่าน");
     if (!confirm) showError('register_confirm_password', "กรุณายืนยันรหัสผ่าน");
     return;
@@ -193,7 +193,7 @@ document.querySelector('#register_modal button:last-of-type')?.addEventListener(
     const response = await fetch(`/api/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, studentId, password })
+      body: JSON.stringify({ username, studentid, password })
     });
 
     if (!response.ok) {
