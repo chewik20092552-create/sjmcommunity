@@ -83,7 +83,7 @@ app.post('/api/register', async (req, res) => {
   try {
     // Check if user exists
     const userExists = await pool.query(
-      'SELECT * FROM user_sjm WHERE username = $1 OR studentId = $2', 
+      'SELECT * FROM user_sjm WHERE username = $1 OR studentid = $2', 
       [username, studentid]
     );
 
