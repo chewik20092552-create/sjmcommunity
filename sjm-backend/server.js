@@ -16,7 +16,8 @@ const server = http.createServer(app);
 const io = new Server(server, { 
   cors: { 
     origin: ['https://sjmcommunity.onrender.com'],
-    methods: ['GET', 'POST']
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"]
   } 
 });
 
