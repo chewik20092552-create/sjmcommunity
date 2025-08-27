@@ -5,8 +5,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const token = localStorage.getItem('token');
 
     const res = await fetch('https://postgres-production-ed5c.up.railway.app/api/profile', {
+      method: "GET",
       headers: {
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
       }
     });
 
