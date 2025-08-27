@@ -165,7 +165,7 @@ body {
     display: block;
     width: 100px;
     height: 4px;
-    background: linear-gradient(90deg, #ff9a9e, #fad0c4);
+    background: linear-gradient(90deg, #0041ff, #ecf7ff);
     margin: 8px auto 0;
     border-radius: 4px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
