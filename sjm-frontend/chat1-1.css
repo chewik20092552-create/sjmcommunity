@@ -222,7 +222,7 @@ body {
 }
 
 .message.them {
-    background: linear-gradient(135deg, #fff5f3 0%, #ff3030 100%;
+    background: linear-gradient(135deg, #fff5f3 0%, #ff3030 100%);
     color: #333;
     margin-right: auto;
     border-bottom-left-radius: 5px;
