@@ -84,7 +84,7 @@ app.post('/api/register', async (req, res) => {
   try {
     // Check if user exists
     const userExists = await pool.query(
-      'SELECT * FROM user_sjm WHERE username = $1 OR studentid = $2', 
+      'SELECT * FROM sjm_db WHERE username = $1 OR studentid = $2', 
       [username, studentid]
     );
 
@@ -100,7 +100,7 @@ app.post('/api/register', async (req, res) => {
 
     // Create new user
     const newUser = await pool.query(
-      'INSERT INTO user_sjm (username, studentid, password) VALUES ($1, $2, $3) RETURNING id, username, studentid',
+      'INSERT INTO sjm_db (username, studentid, password) VALUES ($1, $2, $3) RETURNING id, username, studentid',
       [username, studentid, hashedPassword]
     );
 
@@ -134,7 +134,7 @@ app.post('/api/login', async (req, res) => {
 
   try {
     const result = await pool.query(
-      'SELECT * FROM user_sjm WHERE studentid = $1', 
+      'SELECT * FROM sjm_db WHERE studentid = $1', 
       [studentid]
     );
 
@@ -198,7 +198,7 @@ app.get('/api/profile', async (req, res) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key');
     
     const result = await pool.query(
-      'SELECT username, studentid FROM user_sjm WHERE id = $1',
+      'SELECT username, studentid FROM sjm_db WHERE id = $1',
       [decoded.id]
     );
 
