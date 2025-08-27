@@ -60,6 +60,7 @@ const pool = new Pool({
   user: process.env.PGUSER,
   password: process.env.PGPASSWORD,
   database: process.env.PGDATABASE,
+  connectionString: process.env.DATABASE_URL,
   port: process.env.PGPORT || 5432,
   ssl: { rejectUnauthorized: false } // render/railway ต้องใช้ ssl
 });
