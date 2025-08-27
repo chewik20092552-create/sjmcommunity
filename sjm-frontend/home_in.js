@@ -31,28 +31,6 @@ function logout() {
   window.location.href = "home_out.html";
 }
 
-document.addEventListener('DOMContentLoaded', async () => {
-  const token = localStorage.getItem('token');
-
-  if (!token) {
-    return window.location.href = 'home_out.html';
-  }
-
-  try {
-    const res = await fetch('https://postgres-production-ed5c.up.railway.app/api/profile', {
-      headers: { Authorization: `Bearer ${token}` }
-    });
-
-    if (res.status !== 200) {
-      localStorage.removeItem('token');
-      window.location.href = 'home_out.html';
-    }
-  } catch (err) {
-    console.error('Error validating token:', err);
-    window.location.href = 'home_out.html';
-  }
-});
-
 document.getElementById("enterChatBtn").addEventListener("click", () => {
   const nicknameInput = document.getElementById("nickname");
   const nickname = nicknameInput.value.trim();
