@@ -4,44 +4,63 @@
     box-sizing: border-box;
 }
 
-body{
-    background: radial-gradient(circle, rgb(54, 146, 221), rgb(173, 216, 230)) ;
-    font-family: Sans-serif;
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #64affc 0%, #e7f9ff 100%);
+    background-attachment: fixed;
+    color: #333;
 }
 
-.fullscreen{
-    width: 100vw;
-    height: 70px;
+.fullscreen {
     display: flex;
-    justify-content: space-between;
-    border-color: rgb(21,80,129);
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 40px 20px;
 }
 
-#top{
-    padding-top: 20px;
+.main-content {
+    text-align: center;
+    max-width: 1200px;
+    width: 100%;
 }
-
-#home_button{
-    padding-left: 20px;
-    font-size: 24px;
-    color: rgb(21,80,129);
-    text-decoration: none;
-}
-
-#sjm_commu{
+#home_button, #profile_button {
     position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    color: rgb(21,80,129);
+    top: 30px;
+    padding: 12px 24px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-#profile_button{
-    padding-right: 20px;
-    text-align: right;
-    font-size: 24px;
-    color: rgb(21,80,129);
-    text-decoration: none;
+#home_button {
+    left: 30px;
 }
+
+#profile_button {
+    right: 30px;
+}
+
+#home_button:hover, #profile_button:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+#sjm_commu {
+    font-size: 4rem;
+    font-weight: 800;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    letter-spacing: 2px;
+    text-align: center;
+}
+
 
 .modal {
     position: fixed;
