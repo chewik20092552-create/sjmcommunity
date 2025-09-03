@@ -14,8 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (res.status === 200) {
       const data = await res.json();
-      document.getElementById('profileUsername').innerText = data.data.username;
-      document.getElementById('profileStudentId').innerText = data.data.studentid;
+      document.getElementById('profileUsername').innerText = data.username;
+      document.getElementById('profileStudentId').innerText = data.studentid;
       document.getElementById('profileModal').classList.remove('hidden');
     } else {
       localStorage.removeItem('token');
