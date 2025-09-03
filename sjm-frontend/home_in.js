@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   profileButton.addEventListener('click', async () => {
     const token = localStorage.getItem('token');
 
-    const res = await fetch(`/api/login`, {
+    const res = await fetch(`/api/profile`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
