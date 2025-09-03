@@ -212,7 +212,8 @@ app.get('/api/profile', async (req, res) => {
 
     res.status(200).json({
       success: true,
-      user: result.rows[0]
+      username: result.rows[0].username,
+      studentid: result.rows[0].studentid
     });
 
   } catch (err) {
