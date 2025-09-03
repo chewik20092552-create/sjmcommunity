@@ -47,7 +47,7 @@ body {
 }
 
 #profile_button {
-    right: 50px
+    left: 140px
 }
 
 #home_button:hover, #logout_button:hover, #profile_button:hover {
