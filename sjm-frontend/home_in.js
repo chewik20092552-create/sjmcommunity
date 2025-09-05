@@ -45,5 +45,5 @@ document.getElementById("enterChatBtn").addEventListener("click", () => {
 
   errorEl.textContent = ""; // clear error
   localStorage.setItem("nickname", nickname);
-  window.location.href = "chat1-1.html";
+  window.location.href = "chat_02.html";
 });
