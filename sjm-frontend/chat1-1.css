@@ -24,7 +24,7 @@ body {
     max-width: 1200px;
     width: 100%;
 }
-#home_button, #profile_button {
+#home_button, #logout_button, #profile_button {
     position: absolute;
     top: 30px;
     padding: 12px 24px;
@@ -42,11 +42,15 @@ body {
     left: 30px;
 }
 
-#profile_button {
+#logout_button {
     right: 30px;
 }
 
-#home_button:hover, #profile_button:hover {
+#profile_button {
+    left: 140px
+}
+
+#home_button:hover, #logout_button:hover, #profile_button:hover {
     background: rgba(255, 255, 255, 0.3);
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
