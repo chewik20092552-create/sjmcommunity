@@ -9,21 +9,21 @@
 <body>
 
 <div id="top" class="fullscreen">
-    <a id="home_button" href="home_in.html">Home</a>
-    <h1 id="sjm_commu">SJM COMMUNITY</h1>
-    <a id="profile_button" href="#">Logout</a>
-</div>
-
-<!-- Profile Modal -->
-<div id="profileModal" class="modal hidden">
-    <div class="modal-content">
-        <span class="close-btn" onclick="closeProfileModal()">&times;</span>
-        <h2>ข้อมูลผู้ใช้</h2>
-        <p><strong>ชื่อผู้ใช้:</strong> <span id="profileUsername"></span></p>
-        <p><strong>รหัสนักเรียน:</strong> <span id="profileStudentId"></span></p>
-        <button onclick="logout()">ออกจากระบบ</button>
+        <a id="home_button" href="home_in.html">Home</a>
+        <h1 id="sjm_commu">SJM COMMUNITY</h1>
+        <a id="logout_button" href="#" onclick="logout()">Logout</a>
+        <a id="profile_button" href="#">Profile</a>
     </div>
-</div>
+    <!-- Profile Modal -->
+    <div id="profileModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeProfileModal()">&times;</span>
+            <h2>ข้อมูลผู้ใช้</h2>
+            <p><strong>ชื่อผู้ใช้:</strong> <span id="profileUsername"></span></p>
+            <p><strong>รหัสนักเรียน:</strong> <span id="profileStudentId"></span></p>
+            <button onclick="logout()">ออกจากระบบ</button>
+        </div>
+    </div>
 
 <h1 id="head_chat">Random Chat</h1>
 <div id="status">กำลังรอคู่สนทนา</div>
