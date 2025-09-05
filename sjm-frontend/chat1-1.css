@@ -136,198 +136,110 @@ body {
     text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
 }
 
-/* ระบบแชททั้งหมด */
+/* กล่องแชทหลัก */
 .chat-container {
     display: flex;
     flex-direction: column;
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    height: 90vh;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    max-width: 500px;
+    height: 80vh;
+    margin: 40px auto;
+    background: #ffffffcc;
+    backdrop-filter: blur(20px);
     border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
     overflow: hidden;
 }
 
-/* หัวข้อแชท */
-#head_chat {
-    text-align: center;
-    margin: 10px 0 25px;
-    font-size: 28px;
-    font-weight: 700;
+/* Header */
+.chat-header {
+    background: linear-gradient(90deg, #4facfe, #00f2fe);
     color: white;
-    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
-    letter-spacing: 1px;
-    position: relative;
-    padding-bottom: 12px;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    font-size: 18px;
 }
 
-#head_chat::after {
-    content: '';
-    display: block;
-    width: 100px;
-    height: 4px;
-    background: linear-gradient(90deg, #0041ff, #ecf7ff);
-    margin: 8px auto 0;
-    border-radius: 4px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+/* ปุ่มออก */
+.chat-header button {
+    background: rgba(255,255,255,0.25);
+    border: none;
+    padding: 6px 12px;
+    border-radius: 12px;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.chat-header button:hover {
+    background: rgba(255,255,255,0.4);
 }
 
-/* พื้นที่แสดงข้อความ */
+/* พื้นที่ข้อความ */
 #messages {
     flex: 1;
-    max-height: 65vh;
     overflow-y: auto;
-    padding: 15px;
-    margin-bottom: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 15px;
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(10px);
-    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    background: #f9f9f9;
 }
 
-/* ปรับ Scrollbar */
-#messages::-webkit-scrollbar {
-    width: 6px;
-}
-
-#messages::-webkit-scrollbar-thumb {
-    background: linear-gradient(#ff9a9e, #fad0c4);
-    border-radius: 10px;
-}
-
-/* ข้อความ */
+/* bubble ข้อความ */
 .message {
-    max-width: 80%;
-    margin: 10px 0;
-    padding: 12px 16px;
-    border-radius: 20px;
+    max-width: 75%;
+    padding: 10px 14px;
+    margin: 8px 0;
+    border-radius: 18px;
     font-size: 15px;
-    line-height: 1.5;
+    line-height: 1.4;
     word-wrap: break-word;
-    position: relative;
-    animation: fadeIn 0.4s ease;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    animation: fadeIn 0.2s ease;
 }
 
 .message.you {
-    background: linear-gradient(135deg, #40c3f9 0%, #fff5f3 100%);
-    color: #fff;
+    background: #4facfe;
+    color: white;
     margin-left: auto;
     border-bottom-right-radius: 5px;
 }
 
 .message.them {
-    background: linear-gradient(135deg, #fff5f3 0%, #ff3030 100%);
+    background: #eaeaea;
     color: #333;
     margin-right: auto;
     border-bottom-left-radius: 5px;
 }
 
-/* หางข้อความ */
-.message.you::after {
-    content: '';
-    position: absolute;
-    right: -10px;
-    top: 15px;
-    width: 0;
-    height: 0;
-    border: 10px solid transparent;
-    border-left-color: ##fff5f3;
-    border-right: 0;
-}
-
-.message.them::before {
-    content: '';
-    position: absolute;
-    left: -10px;
-    top: 15px;
-    width: 0;
-    height: 0;
-    border: 10px solid transparent;
-    border-right-color: #a1c4fd;
-    border-left: 0;
-}
-
-#leaveButton {
-    position: absolute;  /* หรือ fixed ถ้าให้ติดอยู่ตลอด */
-    top: 93%;           /* เลื่อนลงมาจากขอบบน 50% */
-    left: 50%;          /* เลื่อนจากขอบซ้าย 50% */
-    transform: translate(-50%, -50%); /* ปรับจุดศูนย์กลาง */
-    padding: 10px 20px;
-    background-color: #f44336;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background 0.3s;
-}
-
-#leaveButton:hover {
-    background-color: #c62828;
-}
-
+/* กล่องพิมพ์ข้อความ */
 #form {
-    position: fixed;
-    bottom: 20px;
-    left: 25%;
-    transform: translateX(-50%);
-    width: 90%;
-    max-width: 600px;
     display: flex;
-    gap: 10px;
-    padding: 15px;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 25px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    z-index: 100;
+    padding: 12px;
+    background: white;
+    border-top: 1px solid #ddd;
 }
 
 #input {
     flex: 1;
-    padding: 12px 20px;
     border: none;
     border-radius: 20px;
-    font-size: 16px;
-    background: rgba(255, 255, 255, 0.8);
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-}
-
-#input:focus {
+    padding: 12px 16px;
+    background: #f1f1f1;
+    font-size: 15px;
     outline: none;
-    background: white;
-    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.15);
 }
 
 #form button {
-    padding: 12px 20px;
-    border: none;
-    border-radius: 20px;
     background: linear-gradient(135deg, #4facfe, #00f2fe);
+    border: none;
+    margin-left: 10px;
+    padding: 0 20px;
+    border-radius: 50px;
     color: white;
-    font-weight: 600;
+    font-size: 15px;
     cursor: pointer;
-    box-shadow: 0 3px 10px rgba(79, 172, 254, 0.3);
-    transition: all 0.3s ease;
+    transition: 0.2s;
 }
-
 #form button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(79, 172, 254, 0.4);
+    transform: scale(1.05);
 }
 
-#form button:active {
-    transform: translateY(0);
-}
