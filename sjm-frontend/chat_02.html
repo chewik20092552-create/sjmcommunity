@@ -48,21 +48,6 @@
                     เริ่มต้นการสนทนา
                 </div>
             </div>
-            
-            <!-- Sample Messages -->
-            <div class="flex justify-start">
-                <div class="message-bubble bg-white rounded-2xl rounded-bl-md px-4 py-3 shadow-sm border border-blue-100 max-w-xs">
-                    <p class="text-gray-800">สวัสดีครับ! วันนี้เป็นอย่างไรบ้าง?</p>
-                    <span class="text-xs text-gray-500 mt-1 block">10:30</span>
-                </div>
-            </div>
-            
-            <div class="flex justify-end">
-                <div class="message-bubble bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl rounded-br-md px-4 py-3 shadow-sm max-w-xs">
-                    <p class="text-white">สวัสดีค่ะ! วันนี้ดีมากเลย ขอบคุณที่ถามนะคะ</p>
-                    <span class="text-xs text-blue-100 mt-1 block">10:32</span>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -94,24 +79,6 @@
                     </svg>
                 </button>
             </div>
-        </div>
-    </div>
-
-    <!-- Emoji Picker (Hidden by default) -->
-    <div id="emojiPicker" class="hidden fixed bottom-20 right-4 bg-white rounded-2xl shadow-xl border border-blue-100 p-4 z-50">
-        <div class="grid grid-cols-6 gap-2 text-2xl">
-            <span class="emoji-option cursor-pointer hover:bg-blue-50 p-2 rounded-lg">😊</span>
-            <span class="emoji-option cursor-pointer hover:bg-blue-50 p-2 rounded-lg">😂</span>
-            <span class="emoji-option cursor-pointer hover:bg-blue-50 p-2 rounded-lg">❤️</span>
-            <span class="emoji-option cursor-pointer hover:bg-blue-50 p-2 rounded-lg">👍</span>
-            <span class="emoji-option cursor-pointer hover:bg-blue-50 p-2 rounded-lg">🎉</span>
-            <span class="emoji-option cursor-pointer hover:bg-blue-50 p-2 rounded-lg">🔥</span>
-            <span class="emoji-option cursor-pointer hover:bg-blue-50 p-2 rounded-lg">💯</span>
-            <span class="emoji-option cursor-pointer hover:bg-blue-50 p-2 rounded-lg">🤔</span>
-            <span class="emoji-option cursor-pointer hover:bg-blue-50 p-2 rounded-lg">😍</span>
-            <span class="emoji-option cursor-pointer hover:bg-blue-50 p-2 rounded-lg">🙏</span>
-            <span class="emoji-option cursor-pointer hover:bg-blue-50 p-2 rounded-lg">✨</span>
-            <span class="emoji-option cursor-pointer hover:bg-blue-50 p-2 rounded-lg">🌟</span>
         </div>
     </div>
 
@@ -170,18 +137,6 @@
                 simulateResponse();
             }, 1000 + Math.random() * 2000);
         }
-
-        // Simulate incoming message
-        function simulateResponse() {
-            const responses = [
-                'ได้เลยครับ!',
-                'เข้าใจแล้วค่ะ',
-                'ขอบคุณมากนะคะ',
-                'ดีมากเลย! 👍',
-                'จริงๆ เหรอ? 😊',
-                'น่าสนใจมากเลย',
-                'เดี๋ยวจะดูให้นะ'
-            ];
 
             const randomResponse = responses[Math.floor(Math.random() * responses.length)];
             const now = new Date();
