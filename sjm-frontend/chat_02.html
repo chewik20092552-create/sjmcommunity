@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แชท - ธีมฟ้าขาว</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600&display=swap');
+        body {
+            font-family: 'Sarabun', sans-serif;
+        }
+        .chat-container {
+            height: calc(100vh - 140px);
+        }
+        .message-bubble {
+            animation: fadeIn 0.3s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .scroll-smooth {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-white min-h-screen">
+    <!-- Header -->
+    <div class="bg-white shadow-sm border-b border-blue-100 px-6 py-4">
+        <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center">
+                <span class="text-white font-semibold text-lg">💬</span>
+            </div>
+            <div>
+                <h1 class="text-xl font-semibold text-gray-800">แชท</h1>
+                <p class="text-sm text-blue-600">ออนไลน์</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Messages Container -->
+    <div id="chatContainer" class="chat-container overflow-y-auto px-4 py-4 scroll-smooth">
+        <div id="messagesArea" class="space-y-4 max-w-4xl mx-auto">
+            <!-- Welcome Message -->
+            <div class="flex justify-center">
+                <div class="bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm">
+                    เริ่มต้นการสนทนา
+                </div>
+            </div>
+            
+            <!-- Sample Messages -->
+            <div class="flex justify-start">
+                <div class="message-bubble bg-white rounded-2xl rounded-bl-md px-4 py-3 shadow-sm border border-blue-100 max-w-xs">
+                    <p class="text-gray-800">สวัสดีครับ! วันนี้เป็นอย่างไรบ้าง?</p>
+                    <span class="text-xs text-gray-500 mt-1 block">10:30</span>
+                </div>
+            </div>
+            
+            <div class="flex justify-end">
+                <div class="message-bubble bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl rounded-br-md px-4 py-3 shadow-sm max-w-xs">
+                    <p class="text-white">สวัสดีค่ะ! วันนี้ดีมากเลย ขอบคุณที่ถามนะคะ</p>
+                    <span class="text-xs text-blue-100 mt-1 block">10:32</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Message Input -->
+    <div class="bg-white border-t border-blue-100 px-4 py-4 shadow-lg">
+        <div class="max-w-4xl mx-auto">
+            <div class="flex items-end space-x-3">
+                <div class="flex-1 relative">
+                    <textarea 
+                        id="messageInput" 
+                        placeholder="พิมพ์ข้อความ..." 
+                        class="w-full px-4 py-3 pr-12 border border-blue-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none bg-blue-50/50"
+                        rows="1"
+                        style="min-height: 48px; max-height: 120px;"
+                    ></textarea>
+                    <button 
+                        id="emojiBtn"
+                        class="absolute right-3 top-1/2 transform -translate-y-1/2 text-blue-500 hover:text-blue-600 transition-colors"
+                    >
+                        😊
+                    </button>
+                </div>
+                <button 
+                    id="sendBtn" 
+                    class="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-3 rounded-2xl hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Emoji Picker (Hidden by default) -->
+    <div id="emojiPicker" class="hidden fixed bottom-20 right-4 bg-white rounded-2xl shadow-xl border border-blue-100 p-4 z-50">
+        <div class="grid grid-cols-6 gap-2 text-2xl">
+            <span class="emoji-option cursor-pointer hover:bg-blue-50 p-2 rounded-lg">😊</span>
+            <span class="emoji-option cursor-pointer hover:bg-blue-50 p-2 rounded-lg">😂</span>
+            <span class="emoji-option cursor-pointer hover:bg-blue-50 p-2 rounded-lg">❤️</span>
+            <span class="emoji-option cursor-pointer hover:bg-blue-50 p-2 rounded-lg">👍</span>
+            <span class="emoji-option cursor-pointer hover:bg-blue-50 p-2 rounded-lg">🎉</span>
+            <span class="emoji-option cursor-pointer hover:bg-blue-50 p-2 rounded-lg">🔥</span>
+            <span class="emoji-option cursor-pointer hover:bg-blue-50 p-2 rounded-lg">💯</span>
+            <span class="emoji-option cursor-pointer hover:bg-blue-50 p-2 rounded-lg">🤔</span>
+            <span class="emoji-option cursor-pointer hover:bg-blue-50 p-2 rounded-lg">😍</span>
+            <span class="emoji-option cursor-pointer hover:bg-blue-50 p-2 rounded-lg">🙏</span>
+            <span class="emoji-option cursor-pointer hover:bg-blue-50 p-2 rounded-lg">✨</span>
+            <span class="emoji-option cursor-pointer hover:bg-blue-50 p-2 rounded-lg">🌟</span>
+        </div>
+    </div>
+
+    <script>
+        const messageInput = document.getElementById('messageInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const messagesArea = document.getElementById('messagesArea');
+        const chatContainer = document.getElementById('chatContainer');
+        const emojiBtn = document.getElementById('emojiBtn');
+        const emojiPicker = document.getElementById('emojiPicker');
+
+        // Auto-resize textarea
+        messageInput.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+            
+            // Enable/disable send button
+            sendBtn.disabled = this.value.trim() === '';
+        });
+
+        // Send message function
+        function sendMessage() {
+            const message = messageInput.value.trim();
+            if (message === '') return;
+
+            // Get current time
+            const now = new Date();
+            const timeString = now.getHours().toString().padStart(2, '0') + ':' + 
+                             now.getMinutes().toString().padStart(2, '0');
+
+            // Create message element
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'flex justify-end';
+            messageDiv.innerHTML = `
+                <div class="message-bubble bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl rounded-br-md px-4 py-3 shadow-sm max-w-xs">
+                    <p class="text-white">${message}</p>
+                    <span class="text-xs text-blue-100 mt-1 block">${timeString}</span>
+                </div>
+            `;
+
+            // Add message to chat
+            messagesArea.appendChild(messageDiv);
+
+            // Clear input
+            messageInput.value = '';
+            messageInput.style.height = 'auto';
+            sendBtn.disabled = true;
+
+            // Scroll to bottom
+            setTimeout(() => {
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }, 100);
+
+            // Simulate response (optional)
+            setTimeout(() => {
+                simulateResponse();
+            }, 1000 + Math.random() * 2000);
+        }
+
+        // Simulate incoming message
+        function simulateResponse() {
+            const responses = [
+                'ได้เลยครับ!',
+                'เข้าใจแล้วค่ะ',
+                'ขอบคุณมากนะคะ',
+                'ดีมากเลย! 👍',
+                'จริงๆ เหรอ? 😊',
+                'น่าสนใจมากเลย',
+                'เดี๋ยวจะดูให้นะ'
+            ];
+
+            const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+            const now = new Date();
+            const timeString = now.getHours().toString().padStart(2, '0') + ':' + 
+                             now.getMinutes().toString().padStart(2, '0');
+
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'flex justify-start';
+            messageDiv.innerHTML = `
+                <div class="message-bubble bg-white rounded-2xl rounded-bl-md px-4 py-3 shadow-sm border border-blue-100 max-w-xs">
+                    <p class="text-gray-800">${randomResponse}</p>
+                    <span class="text-xs text-gray-500 mt-1 block">${timeString}</span>
+                </div>
+            `;
+
+            messagesArea.appendChild(messageDiv);
+            
+            setTimeout(() => {
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }, 100);
+        }
+
+        // Event listeners
+        sendBtn.addEventListener('click', sendMessage);
+
+        messageInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        // Emoji picker functionality
+        emojiBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            emojiPicker.classList.toggle('hidden');
+        });
+
+        // Close emoji picker when clicking outside
+        document.addEventListener('click', function() {
+            emojiPicker.classList.add('hidden');
+        });
+
+        emojiPicker.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        // Add emoji to message
+        document.querySelectorAll('.emoji-option').forEach(emoji => {
+            emoji.addEventListener('click', function() {
+                messageInput.value += this.textContent;
+                messageInput.focus();
+                emojiPicker.classList.add('hidden');
+                
+                // Trigger input event to resize textarea and enable send button
+                messageInput.dispatchEvent(new Event('input'));
+            });
+        });
+
+        // Initialize
+        sendBtn.disabled = true;
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97a2992817579bae',t:'MTc1NzA0MjUwNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
