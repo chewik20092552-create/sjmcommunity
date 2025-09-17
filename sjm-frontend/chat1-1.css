@@ -243,3 +243,34 @@ body {
     transform: scale(1.05);
 }
 
+/* Title ของห้องแชท */
+#head_chat {
+    text-align: center;
+    margin: 20px auto;
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+
+/* ปุ่มออกจากการจับคู่ */
+#leaveButton {
+    display: none; /* ซ่อนเริ่มต้น */
+    background: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+    margin: 10px auto;
+    display: block;
+    transition: background 0.2s ease;
+}
+
+#leaveButton:hover {
+    background: #e60000;
+}
+
+
