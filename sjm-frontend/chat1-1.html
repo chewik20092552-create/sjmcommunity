@@ -87,7 +87,7 @@ const leaveButton = document.getElementById('leaveButton');
 socket.on('waiting', () => {
     document.getElementById('status').textContent = 'กำลังรอคู่สนทนา…';
     document.getElementById('status').style.display = 'block';
-    leaveButton.style.display = 'inline-block';
+    leaveButton.style.display = 'block';
 });
 
 // เมื่อจับคู่แล้ว
