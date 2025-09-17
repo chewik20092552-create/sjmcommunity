@@ -182,6 +182,7 @@ body {
     overflow-y: auto;
     padding: 20px;
     background: #f9f9f9;
+    max-height: 60vh;
 }
 
 /* bubble ข้อความ */
