@@ -204,7 +204,7 @@ body {
 }
 
 .message.them {
-    background: #eaeaea;
+    background: ##ff8787;
     color: #333;
     margin-right: auto;
     border-bottom-left-radius: 5px;
