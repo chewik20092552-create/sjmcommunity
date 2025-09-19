@@ -48,7 +48,7 @@ document.getElementById("enterChatBtn").addEventListener("click", () => {
   window.location.href = "chat1-1.html";
 });
 
-const createRoomBtn = document.getElementById("createRoomBtn");
+const createRoomBtn = document.getElementById("create");
 const createRoomModal = document.getElementById("createRoomModal");
 const cancelCreateRoom = document.getElementById("cancelCreateRoom");
 const confirmCreateRoom = document.getElementById("confirmCreateRoom");
