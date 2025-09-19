@@ -102,4 +102,12 @@ confirmCreateRoom.addEventListener("click", () => {
   rooms.push({ name: roomName });
   renderRooms();
   createRoomModal.classList.add("hidden");
+
+  if (res.ok) {
+    roomNameInput.value = ""; // ✅ ล้างช่อง input
+    createRoomModal.classList.add("hidden");
+    await fetchRooms(); // โหลดรายการห้องใหม่จาก DB
+  } else {
+    alert("สร้างห้องไม่สำเร็จ!");
+  }
 });
