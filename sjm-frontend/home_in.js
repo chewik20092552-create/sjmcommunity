@@ -47,3 +47,29 @@ document.getElementById("enterChatBtn").addEventListener("click", () => {
   localStorage.setItem("nickname", nickname);
   window.location.href = "chat1-1.html";
 });
+
+const createRoomBtn = document.getElementById("createRoomBtn");
+const createRoomModal = document.getElementById("createRoomModal");
+const cancelCreateRoom = document.getElementById("cancelCreateRoom");
+const confirmCreateRoom = document.getElementById("confirmCreateRoom");
+
+createRoomBtn.addEventListener("click", () => {
+  createRoomModal.classList.remove("hidden");
+});
+
+cancelCreateRoom.addEventListener("click", () => {
+  createRoomModal.classList.add("hidden");
+});
+
+confirmCreateRoom.addEventListener("click", () => {
+  const roomName = document.getElementById("roomNameInput").value.trim();
+  if (!roomName) {
+    alert("กรุณาใส่ชื่อห้องก่อน!");
+    return;
+  }
+
+  console.log("สร้างห้อง:", roomName);
+  // TODO: เรียก API เพื่อสร้างห้องใน database
+  createRoomModal.classList.add("hidden");
+});
+
