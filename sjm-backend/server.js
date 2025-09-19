@@ -225,6 +225,40 @@ app.get('/api/profile', async (req, res) => {
   }
 });
 
+// GET: ดึงรายชื่อห้องทั้งหมด
+app.get('/api/rooms', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM chat_rooms ORDER BY created_at DESC');
+    res.json({ success: true, rooms: result.rows });
+  } catch (err) {
+    console.error('Get Rooms Error:', err);
+    res.status(500).json({ success: false, message: 'ไม่สามารถดึงรายชื่อห้องได้' });
+  }
+});
+
+// POST: สร้างห้องใหม่
+app.post('/api/rooms', async (req, res) => {
+  const { name } = req.body;
+
+  if (!name) return res.status(400).json({ success: false, message: 'ต้องใส่ชื่อห้อง' });
+
+  try {
+    const result = await pool.query(
+      'INSERT INTO chat_rooms (name) VALUES ($1) RETURNING *',
+      [name]
+    );
+
+    // ส่ง event ให้ทุก client ที่ connect อยู่
+    io.emit('roomCreated', result.rows[0]);
+
+    res.status(201).json({ success: true, room: result.rows[0] });
+  } catch (err) {
+    console.error('Create Room Error:', err);
+    res.status(500).json({ success: false, message: 'สร้างห้องไม่สำเร็จ' });
+  }
+});
+
+
 // SOCKET.IO CONFIGURATION
 const waitingUsers = [];
 
