@@ -218,3 +218,34 @@ body {
   justify-content: center;
   gap: 10px;
 }
+
+.room-list {
+  max-width: 400px;
+  margin: 20px auto;
+  background: #ffffffcc;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.room-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+.room-item:last-child {
+  border-bottom: none;
+}
+
+.room-item button {
+  padding: 5px 10px;
+  background: #1e88e5;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
