@@ -178,3 +178,43 @@ body {
   font-size: 14px;
   margin-top: 5px;
 }
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  width: 300px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.input-text {
+  width: 100%;
+  padding: 8px;
+  margin: 12px 0;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+}
+
+.input-text:focus {
+  border-color: #3b82f6;
+  outline: none;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
