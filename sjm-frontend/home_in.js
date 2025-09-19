@@ -111,3 +111,33 @@ confirmCreateRoom.addEventListener("click", () => {
     alert("สร้างห้องไม่สำเร็จ!");
   }
 });
+
+async function loadRooms() {
+  try {
+    const res = await fetch('/api/rooms');
+    const data = await res.json();
+
+    if (data.success) {
+      const list = document.getElementById('roomList');
+      list.innerHTML = '<h3 class="text-lg font-bold mb-2">รายชื่อห้อง</h3>'; // ✅ เพิ่มหัวข้อ
+      data.rooms.forEach(room => {
+        const div = document.createElement('div');
+        div.className = 'p-2 bg-gray-100 rounded-lg mb-2 cursor-pointer hover:bg-gray-200';
+        div.textContent = room.name;
+        list.appendChild(div);
+      });
+    }
+  } catch (err) {
+    console.error('Load Rooms Error:', err);
+  }
+}
+
+// เรียกตอนโหลดหน้า
+document.addEventListener('DOMContentLoaded', loadRooms);
+
+// ฟัง event เมื่อมีห้องใหม่ถูกสร้าง
+const socket = io();
+socket.on('roomCreated', (room) => {
+  loadRooms(); // ✅ โหลดใหม่ให้ทุกคนเห็นห้องที่เพิ่มแบบ realtime
+});
+
