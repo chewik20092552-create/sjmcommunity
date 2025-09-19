@@ -73,3 +73,33 @@ confirmCreateRoom.addEventListener("click", () => {
   createRoomModal.classList.add("hidden");
 });
 
+const roomListEl = document.getElementById("roomList");
+let rooms = [];
+
+function renderRooms() {
+  roomListEl.innerHTML = "";
+  rooms.forEach(room => {
+    const div = document.createElement("div");
+    div.className = "room-item";
+    div.innerHTML = `
+      <span>${room.name}</span>
+      <button onclick="joinRoom('${room.name}')">Join</button>
+    `;
+    roomListEl.appendChild(div);
+  });
+}
+
+function joinRoom(roomName) {
+  window.location.href = `chat_room.html?room=${encodeURIComponent(roomName)}`;
+}
+
+confirmCreateRoom.addEventListener("click", () => {
+  const roomName = document.getElementById("roomNameInput").value.trim();
+  if (!roomName) {
+    alert("กรุณาใส่ชื่อห้องก่อน!");
+    return;
+  }
+  rooms.push({ name: roomName });
+  renderRooms();
+  createRoomModal.classList.add("hidden");
+});
