@@ -228,7 +228,7 @@ app.get('/api/profile', async (req, res) => {
 // GET: ดึงรายชื่อห้องทั้งหมด
 app.get('/api/rooms', async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM chat_rooms ORDER BY created_at DESC');
+    const result = await pool.query('SELECT * FROM chat_rooms');
     res.json({ success: true, rooms: result.rows });
   } catch (err) {
     console.error('Get Rooms Error:', err);
