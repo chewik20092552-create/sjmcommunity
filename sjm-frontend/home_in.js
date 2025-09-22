@@ -92,7 +92,7 @@ confirmCreateRoom.addEventListener("click", async () => {
 // ============================
 async function loadRooms() {
   try {
-    const res = await fetch('/api/chat_rooms');
+    const res = await fetch('/api/rooms');
     const data = await res.json();
 
     if (data.success) {
