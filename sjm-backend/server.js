@@ -318,11 +318,6 @@ io.on('connection', socket => {
 
     socket.room = null;
   });
-  socket.on('joinRoom', (roomName) => {
-  socket.join(roomName);
-  console.log(`${socket.id} joined room: ${roomName}`);
-});
-
 });
 
 // Error handling middleware
