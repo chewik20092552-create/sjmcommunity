@@ -126,3 +126,13 @@ const socket = io();
 socket.on('roomCreated', () => {
   loadRooms();
 });
+
+if (data.success) {
+  roomNameInput.value = "";
+  createRoomModal.classList.add("hidden");
+  await loadRooms();
+
+  // 🔑 ให้ join room ผ่าน socket.io ถ้าต้องการเข้าเลย
+  socket.emit("joinRoom", data.room.name);
+}
+
